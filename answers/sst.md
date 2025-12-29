@@ -1,5 +1,6 @@
 <!--sst-->
 <!--Explains how to install SST manually-->
+<!---->
 ### How to Install Source Speedrun Tools (SST)
 1. First, download the auto-update script from [here.](https://dl.mikes.software/sst-updatescript.zip)
 2. Unzip the folder
