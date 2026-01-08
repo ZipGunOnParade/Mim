@@ -1,5 +1,5 @@
 import interactions
-
+import logging
 import os
 import json
 import re
@@ -9,6 +9,15 @@ import io
 dirPath = os.path.dirname(os.path.realpath(__file__))
 
 bot = interactions.Client(intents=interactions.Intents.DEFAULT | interactions.Intents.GUILD_MEMBERS | interactions.Intents.MESSAGE_CONTENT, send_command_tracebacks=False, fetch_members=False)
+
+logging.basicConfig(
+    level=logging.WARNING,
+    format="%(levelname)s %(message)s"
+)
+
+logger = logging.getLogger("mim")
+logger.setLevel(logging.INFO)
+
 
 
 @interactions.listen()
@@ -57,8 +66,10 @@ async def mim(ctx: interactions.SlashContext, answer: str):
     for file in answers:
         if file.name == answer.lower():
             await ctx.send(file.body)
+            logger.info(f"{ctx.author.display_name} ({ctx.author.id}) retrieved {file.name}")
             return
-        
+    
+    logger.info(f"{ctx.author.display_name} ({ctx.author.id}) retrieved non-existent resource {answer}")
     await ctx.send("Couldn't find an answer with that name.", ephemeral=True)
 
 
